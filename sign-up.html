@@ -9,7 +9,7 @@
     <form action="/sign-up">
       <div>
         <h1>sign up</h1>
-        <p>{{.}}</p>
+        <p>{{.Message}}</p>
         <hr />
         <label><b>Email</b></label>
         <input type="text" placeholder="enter email" name="email" required />
@@ -21,6 +21,9 @@
           required
         />
         <button type="submit">sign up</button>
+        {{if .ShowSignInButton}}
+        <a href="/sign-in"><button type="button">Go to sign-in</button></a>
+        {{end}}
       </div>
     </form>
   </body>

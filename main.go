@@ -17,7 +17,7 @@ func signInUser(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, fileName, "New User Sign-in Failure")
 		return;
 	}
-	fileName := "sign-up.html"
+	fileName := "sign-in.html"
 	t, _ := template.ParseFiles(fileName)
 	t.ExecuteTemplate(w, fileName, "New User Sign-in Success")
 }
@@ -34,7 +34,12 @@ func signUpUser(w http.ResponseWriter, r *http.Request) {
 	}
 	fileName := "sign-up.html"
 	t, _ := template.ParseFiles(fileName)
-	t.ExecuteTemplate(w, fileName, "New User Sign-up")
+	data := map[string]interface{}{
+		"Message":           "New User Sign-up",
+		"ShowSignInButton":  true,
+	}
+
+	t.ExecuteTemplate(w, fileName, data)
 
 }
 
