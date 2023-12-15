@@ -3,42 +3,35 @@ package main
 import (
 	"learngo/users"
 	"net/http"
-
 	"text/template"
 )
 
 func signInUser(w http.ResponseWriter, r *http.Request) {
 	newUser := getUser(r)
 	ok := users.DefaultUserService.VerifyUser(newUser)
-
+	fileName := "sign-in.html"
+	t, _ := template.ParseFiles(fileName)
 	if !ok {
-		fileName := "sign-in.html"
-		t, _ := template.ParseFiles(fileName)
 		t.ExecuteTemplate(w, fileName, "New User Sign-in Failure")
 		return;
 	}
-	fileName := "sign-in.html"
-	t, _ := template.ParseFiles(fileName)
 	t.ExecuteTemplate(w, fileName, "New User Sign-in Success")
 }
 
 func signUpUser(w http.ResponseWriter, r *http.Request) {
 	newUser := getUser(r)
 	err := users.DefaultUserService.CreateUser(newUser)
-
+	fileName := "sign-up.html"
+	t, _ := template.ParseFiles(fileName)
 	if err != nil {
-		fileName := "sign-up.html"
-		t, _ := template.ParseFiles(fileName)
 		t.ExecuteTemplate(w, fileName, "New User Sign-up Failure")
 		return;
 	}
-	fileName := "sign-up.html"
-	t, _ := template.ParseFiles(fileName)
+
 	data := map[string]interface{}{
 		"Message":           "New User Sign-up",
 		"ShowSignInButton":  true,
 	}
-
 	t.ExecuteTemplate(w, fileName, data)
 
 }
